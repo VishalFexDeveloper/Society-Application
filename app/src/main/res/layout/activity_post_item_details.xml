@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.PostItemDetailsActivity"
+    android:orientation="vertical"
+    android:background="@color/blue">
+    <ImageView
+        android:id="@+id/itemDetailsBannerImg"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:contentDescription="@string/announcement_images"
+        android:src="@drawable/img"
+        android:scaleType="centerCrop"/>
+
+    <ImageButton
+        android:id="@+id/itemDetailsArrowBtn"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:contentDescription="@string/announcement_images"
+        android:src="@drawable/arrow_icon"
+        android:background="@drawable/edit_shape"
+        android:layout_margin="20dp"
+        app:tint="@color/blue" />
+
+    <LinearLayout
+        android:layout_below="@id/itemDetailsBannerImg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/layout_shape"
+        android:layout_marginTop="-20dp"
+        android:orientation="vertical"
+        android:paddingTop="25sp">
+
+        <LinearLayout
+            android:id="@+id/profileLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="12dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/itemDetailsProfileImg"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:shapeAppearance="@style/imgRound"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="8dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/itemDetailsName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_name"
+                        android:textSize="18sp"
+                        android:textColor="@color/blue"
+                        android:maxLines="1"/>
+                    <TextView
+                        android:id="@+id/itemDetailsSociety"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/enterSociety"
+                        android:textColor="@color/greyWhite"
+                        android:maxLines="1"/>
+
+                </LinearLayout>
+        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/itemDetailsProgressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/blue"
+            />
+
+        <ImageView
+            android:id="@+id/showPostNoData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/announcement_images"
+            android:src="@drawable/box_empty"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+    <ScrollView
+        android:id="@+id/itemDetailsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/itemDetailsDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/_00_00_00_00_00_00"
+                android:textColor="@color/greyWhite"
+                android:paddingHorizontal="16sp"
+                android:textStyle="bold"
+                android:maxLines="2"
+                />
+            <TextView
+                android:id="@+id/itemDetailsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/announcement_title"
+                android:textColor="@color/black"
+                android:paddingHorizontal="16sp"
+                android:textStyle="bold"
+                android:maxLines="2"
+                android:layout_marginTop="4dp"/>
+
+            <TextView
+                android:id="@+id/itemDetailscontacts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/contacts"
+                android:textColor="@color/greyWhite"
+                android:paddingHorizontal="14sp"
+                android:layout_marginTop="4dp"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+
+
+    </LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/itemDetailsCallBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/call_icon"
+        android:text="@string/call"
+        android:textSize="16sp"
+        android:layout_marginHorizontal="70dp"
+        app:iconGravity="textStart"
+        android:layout_marginTop="-43dp"
+        android:layout_below="@id/itemDetailsBannerImg"
+        android:textStyle="bold"
+        />
+
+
+</RelativeLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/blue"
+    tools:context=".Activity.LoginActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/society_icon"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/layout_shape"
+        android:orientation="vertical"
+        android:padding="20dp"
+        >
+
+        <TextView
+            android:id="@+id/loginNumTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/numberVerify"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/blue"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
+
+
+
+        <TextView
+            android:id="@+id/aboutNumTile"
+            android:layout_below="@id/loginNumTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/greyWhite"
+            android:text="@string/we_will_send"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"/>
+
+        <EditText
+            android:id="@+id/editNumber"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/edit_shape"
+            android:hint="@string/phoneNumber"
+            android:paddingHorizontal="18sp"
+            android:singleLine="true"
+            android:autofillHints="phone"
+            android:gravity="center"
+            android:layout_below="@id/aboutNumTile"
+            android:textColor="@color/blue"
+            android:inputType="number"
+            />
+
+
+        <Button
+            android:id="@+id/continueNumBtn"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="25dp"
+            android:backgroundTint="@color/blue"
+            android:text="@string/continueTextBtn"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">Society</string>
+    <string name="Application_logo">Application logo</string>
+    <string name="arrow_button">Arrow button</string>
+    <string name="numberVerify">Verify your phone number</string>
+
+    <string name="email_hint">email adders</string>
+    <string name="password_hint">Enter password</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="singUpText">"Don't have an Account?"</string>
+    <string name="singUpHere">Sing up here</string>
+    <string name="enterName">full name </string>
+    <string name="phoneNumber">number</string>
+    <string name="confirmPassword">confirm password</string>
+    <string name="haveAnAccount">Have an Account?</string>
+    <string name="pleaseVerifyOtpTile">verify number</string>
+    <string name="continueTextBtn">Continue</string>
+    <string name="we_will_send">we will send otp on your number to verify</string>
+    <string name="enter_the_otp">Enter the otp code verify your phone number</string>
+    <string name="enterSociety">Society name</string>
+    <string name="cityName">City name</string>
+    <string name="pin_code">pin code</string>
+    <string name="enter_room_no">Enter room no</string>
+    <string name="create_account">Create account</string>
+    <string name="category">category</string>
+    <string name="logout">Logout</string>
+    <string name="user_number">user number</string>
+    <string name="user_name">user name</string>
+
+    <string name="navigation_drawer_open">navigation drawer open</string>
+    <string name="navigation_drawer_close">navigation drawer close</string>
+    <string name="menu">Drawer menu</string>
+    <string name="search">search</string>
+    <string name="home">Home</string>
+    <string name="account">Profile</string>
+    <string name="Announcement">Upload</string>
+
+    <style name="imgRound">
+        <item name="cornerSize">50%</item>
+    </style>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="other">Other</string>
+    <string name="house">House no</string>
+    <string name="personalDetails">personal details</string>
+    <string name="gander">gander</string>
+    <string name="contacts">Contacts</string>
+    <string name="edit">Edit</string>
+    <string name="update_profile">Update profile</string>
+    <string name="save">Save</string>
+    <string name="error_image">error image</string>
+    <string name="announcement_images">announcement images</string>
+    <string name="announcement_banner">Post image</string>
+    <string name="announcement_title">title</string>
+    <string name="announcement_content">content</string>
+    <string name="announcement_category">category</string>
+    <string name="announcement_share">share</string>
+    <string name="_views">0 views</string>
+    <string name="post_load">Post load</string>
+    <string name="society_members">members</string>
+    <string name="profile_edit">profile Edit</string>
+    <string name="profile_details">Profile details</string>
+
+    <string name="enter_otp">Enter otp</string>
+    <string name="call">Call</string>
+    <string name="_00_00_00_00_00_00">Date 00/00/00 Time 00:00:00</string>
+    <string name="profile">Profile</string>
+    <string name="society_post">Society post</string>
+    <string name="time">Time</string>
+
+
+</resources>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context=".Activity.EditDetailsActivity"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarPro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/upDateArrowBtn"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:src="@drawable/arrow_icon"
+            android:layout_margin="25dp"
+            app:tint="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update_profile"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"/>
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <LinearLayout
+        android:layout_below="@id/toolbarPro"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/layout_shape"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        >
+
+        <ProgressBar
+            android:id="@+id/EditProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:indeterminateTint="@color/blue"/>
+
+        <ImageView
+            android:id="@+id/editProfileErrorImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/error_image"
+            android:src="@drawable/error_img"
+            android:visibility="gone"/>
+
+        <ScrollView
+            android:id="@+id/EditProfileLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:paddingTop="15dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    app:cardElevation="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="15dp"
+                        android:gravity="center"
+                        android:background="@color/white"
+                        >
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/updateProfileImg"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            app:shapeAppearance="@style/imgRound"
+                            android:background="@drawable/edit_shape"
+                            android:src="@drawable/img"
+                            android:scaleType="centerCrop"/>
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/updateUserNameEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:textColor="@color/blue"
+                            android:hint="@string/user_name"
+                            android:inputType="text"
+                            android:singleLine="true"
+                            />
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/updateSocietyEdit"
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="12dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/blue"
+                            android:hint="@string/enterSociety"
+                            android:singleLine="true"/>
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/updateHouseEdit"
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="12dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/blue"
+                            android:hint="@string/house"
+                            android:inputType="number"
+                            android:singleLine="true"/>
+                    </LinearLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    app:cardElevation="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="15dp"
+                        android:gravity="center"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/personalDetails"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/lightGery"/>
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/updatePinCodeEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:textColor="@color/blue"
+                            android:hint="@string/pin_code"
+                            android:inputType="number"
+                            android:singleLine="true"
+                            />
+
+
+                        <RadioGroup
+                            android:id="@+id/updateGanderGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="25dp"
+                            android:gravity="center"
+                            >
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:id="@+id/updateFemale"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/female"
+                                android:textColor="@color/blue"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:paddingEnd="8dp"
+                                tools:ignore="RtlSymmetry" />
+
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:id="@+id/updateMale"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/male"
+                                android:textColor="@color/blue"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:paddingEnd="8dp"
+                                tools:ignore="RtlSymmetry" />
+                            <com.google.android.material.radiobutton.MaterialRadioButton
+                                android:id="@+id/updateOther"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/other"
+                                android:textColor="@color/blue"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:paddingEnd="8dp"
+                                tools:ignore="RtlSymmetry" />
+                        </RadioGroup>
+
+
+                    </LinearLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="25dp"
+                    app:cardElevation="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="15dp"
+                        android:gravity="center"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/contacts"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/lightGery"
+                            android:singleLine="true"/>
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/updateNumberEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:textColor="@color/blue"
+                            android:hint="@string/phoneNumber"
+                            android:autofillHints="phone"
+                            android:inputType="number"
+                            android:singleLine="true"
+                            />
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/updateEmailIdEdit"
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="12dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/blue"
+                            android:hint="@string/email_hint"
+                            android:autofillHints="emailAddress"
+                            android:inputType="textEmailAddress"
+                            android:singleLine="true"/>
+
+
+                    </LinearLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <Button
+                    android:id="@+id/editSaveBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+
+        </ScrollView>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

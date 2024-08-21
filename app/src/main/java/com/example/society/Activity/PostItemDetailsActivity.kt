@@ -66,6 +66,7 @@ class PostItemDetailsActivity : AppCompatActivity() {
                             val postItem = announcements.find { it.AnnId == postingId }
                             if (postItem != null) {
                                 postItems = postItem
+
                                 binding.itemDetailsName.text = postItems.userName
                                 binding.itemDetailsTitle.text = postItems.title
                                 binding.itemDetailscontacts.text = postItems.content
@@ -76,9 +77,6 @@ class PostItemDetailsActivity : AppCompatActivity() {
 
                                 binding.itemDetailsProgressbar.visibility = View.GONE
                                 binding.itemDetailsLayout.visibility = View.VISIBLE
-                                if (postItem.userId == userId){
-                                    binding.itemDetailsCallBtn.visibility = View.GONE
-                                }
                             } else {
                                 binding.showPostNoData.visibility = View.VISIBLE
                                 binding.itemDetailsProgressbar.visibility = View.GONE

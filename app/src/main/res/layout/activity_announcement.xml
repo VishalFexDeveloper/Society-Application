@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.AnnouncementActivity"
+    android:orientation="vertical"
+    android:scrollbars="none">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarHome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue">
+        <ImageView
+            android:id="@+id/postLoadBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/announcement_images"
+            android:src="@drawable/arrow_icon"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            app:tint="@color/white" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/post_load"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textSize="22sp"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@id/toolbarHome"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/announcementCard"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="20dp"
+                android:backgroundTint="@color/white"
+                app:cardElevation="12dp">
+
+                <LinearLayout
+                    android:id="@+id/announcementImgLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    tools:ignore="UseCompoundDrawables"
+                    >
+
+                    <ImageView
+                        android:id="@+id/announcementFullImg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/announcement_banner"
+                        android:src="@drawable/img"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        />
+
+                    <ImageView
+                        android:id="@+id/announcementImage"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:contentDescription="@string/announcement_images"
+                        android:src="@drawable/upload_icon"
+                        app:tint="@color/greyWhite"
+                        android:visibility="visible"/>
+
+                    <TextView
+                        android:id="@+id/announcementBannerText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/announcement_banner"
+                        android:textSize="18sp"
+                        android:visibility="visible"
+                        android:textColor="@color/greyWhite"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/announcementTitle"
+                android:layout_below="@id/announcementCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="120dp"
+                android:background="@drawable/announts_shape"
+                android:layout_marginHorizontal="20dp"
+                android:padding="12dp"
+                android:gravity="start"
+                android:hint="@string/announcement_title"
+                android:textColor="@color/blue"
+                android:textColorHint="@color/greyWhite"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_below="@+id/announcementTitle"
+                android:id="@+id/announcementContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="120dp"
+                android:background="@drawable/announts_shape"
+                android:layout_marginHorizontal="20dp"
+                android:padding="12dp"
+                android:gravity="start"
+                android:layout_marginTop="15dp"
+                android:hint="@string/announcement_content"
+                android:textColor="@color/blue"
+                android:textColorHint="@color/greyWhite"/>
+
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/announcementShareButton"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/announcement_share"
+        android:backgroundTint="@color/blue"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:textSize="14sp"/>
+
+
+</RelativeLayout>

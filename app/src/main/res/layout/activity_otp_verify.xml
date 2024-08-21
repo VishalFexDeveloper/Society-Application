@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    android:orientation="vertical"
+    tools:context=".Activity.OtpVerifyActivity">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/society_icon" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/layout_shape"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+
+        <TextView
+            android:id="@+id/loginTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="@string/pleaseVerifyOtpTile"
+            android:textColor="@color/blue"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/aboutTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/loginTitle"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="@string/enter_the_otp"
+            android:textColor="@color/greyWhite" />
+
+
+        <EditText
+            android:id="@+id/verticalOtp"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/edit_shape"
+            android:hint="@string/enter_otp"
+            android:paddingHorizontal="18sp"
+            android:singleLine="true"
+            android:inputType="number"
+            android:textColorHint="@color/greyWhite"
+            android:textColor="@color/blue"
+            android:layout_below="@id/aboutTitle"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            />
+
+
+
+        <Button
+            android:id="@+id/continueOtpBtn"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:text="@string/continueTextBtn"
+            android:textColor="@color/white" />
+
+
+    </RelativeLayout>
+</LinearLayout>
