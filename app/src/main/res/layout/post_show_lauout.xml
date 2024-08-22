@@ -11,12 +11,15 @@
     android:focusable="true"
     >
 
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="270dp"
         android:layout_marginHorizontal="12dp"
-        app:cardCornerRadius="18sp"
+        app:cardCornerRadius="0dp"
         android:layout_marginBottom="8dp"
+        app:cardElevation="8dp"
+        android:backgroundTint="@color/white"
         app:strokeWidth="0dp">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -28,11 +31,13 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/announcement_images"
                 android:src="@drawable/img"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="65dp"/>
 
             <TextView
                 android:id="@+id/showTitleText"
                 android:layout_width="match_parent"
+                android:layout_marginBottom="65dp"
                 android:layout_height="wrap_content"
                 android:background="@color/lightGery"
                 android:layout_alignParentBottom="true"
@@ -45,63 +50,67 @@
                 android:textStyle="bold"
                 android:maxLines="2"/>
 
+            <LinearLayout
+                android:id="@+id/profileLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_alignParentBottom="true"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:gravity="center">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/showProfileImg"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/img"
+                    app:shapeAppearance="@style/imgRound"
+                    android:scaleType="centerCrop"
+                    />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginHorizontal="8dp">
+
+                    <TextView
+                        android:id="@+id/showUserNameText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="@string/user_name"
+                        android:textSize="18sp"
+                        android:textColor="@color/blue"/>
+                    <TextView
+                        android:id="@+id/showCategoryText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="@string/category"
+                        android:textSize="14sp"
+                        android:textColor="@color/greyWhite"/>
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/timeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/time"
+                    android:textColor="@color/greyWhite"/>
+
+            </LinearLayout>
+
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <LinearLayout
-        android:id="@+id/profileLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:paddingHorizontal="12dp"
-        android:gravity="center">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/showProfileImg"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/img"
-            app:shapeAppearance="@style/imgRound"
-            android:scaleType="centerCrop"
-            />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginHorizontal="8dp">
-
-            <TextView
-                android:id="@+id/showUserNameText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="@string/user_name"
-                android:textSize="18sp"
-                android:textColor="@color/blue"/>
-            <TextView
-                android:id="@+id/showCategoryText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="@string/category"
-                android:textSize="14sp"
-                android:textColor="@color/greyWhite"/>
-
-        </LinearLayout>
-        <TextView
-            android:id="@+id/timeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/time"
-            android:textColor="@color/greyWhite"/>
-
-    </LinearLayout>
 
 
 </LinearLayout>

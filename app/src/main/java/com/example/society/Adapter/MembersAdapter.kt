@@ -2,10 +2,12 @@ package com.example.society.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.society.Activity.OtherProfileActivity
 import com.example.society.Model.ProfileDetails
 import com.example.society.R
 import com.example.society.databinding.MembersLayoutBinding
@@ -34,6 +36,12 @@ class MembersAdapter(private val context: Context,
         if (holder is ViewHolder) {
             val announcement = showPostList[position]
             holder.bind(announcement)
+            holder.binding.root.setOnClickListener {
+                val intent = Intent(context, OtherProfileActivity::class.java).apply {
+                    putExtra("userId",showPostList[position].userId)
+                }
+                context.startActivity(intent)
+            }
         }
     }
 

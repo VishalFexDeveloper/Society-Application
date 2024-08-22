@@ -23,24 +23,25 @@ import com.example.society.R
 import com.example.society.databinding.ActivityEditDetailsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 
 class EditDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditDetailsBinding
     private lateinit var viewModel: UserViewModel
     private lateinit var userId: String
-    private lateinit var auth: FirebaseFirestore
-    private lateinit var phoneAuth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
+    lateinit var firebaseStorage: FirebaseStorage
     private val PICK_IMAGE_REQUEST = 9191
     private var imgUri: String? = null
-
+    private var selcetImg:String?=null
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        phoneAuth = FirebaseAuth.getInstance()
-        auth = FirebaseFirestore.getInstance()
+        db = FirebaseFirestore.getInstance()
+        firebaseStorage = FirebaseStorage.getInstance()
         val repository = UserRepository()
         val viewModelFactory = UserProfileViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
@@ -73,9 +74,10 @@ class EditDetailsActivity : AppCompatActivity() {
                 binding.updatePinCodeEdit.setText(profile.pinCode)
                 binding.updateNumberEdit.setText(profile.number)
                 binding.updateEmailIdEdit.setText(profile.emailId)
+                imgUri = profile.profileImg
                 Glide.with(this).load(profile.profileImg).placeholder(R.drawable.img)
                     .into(binding.updateProfileImg)
-                imgUri = profile.profileImg
+
             } else {
                 binding.EditProgressBar.visibility = View.GONE
                 binding.EditProfileLayout.visibility = View.GONE
@@ -162,35 +164,74 @@ class EditDetailsActivity : AppCompatActivity() {
                 R.id.updateOther -> "Other"
                 else -> ""
             }
-
-            val model = mapOf(
-                "profileImg" to imgUri.toString(),
-                "society" to society,
-                "number" to number,
-                "pinCode" to pinCode,
-                "userName" to userName,
-                "emailId" to email,
-                "houseNo" to houseNo,
-                "gender" to selectedGender,
-                "userId" to userId
-            )
-
             val progressDialog = ShowProgress.showProgressDialog(this, "Updating profile...")
-            val userId = phoneAuth.currentUser?.uid.toString()
-            auth.collection("userDetails").document(userId)
-                .set(model)
-                .addOnSuccessListener {
-                    progressDialog.dismiss()
-                    val intent = Intent(this, HomeActivity::class.java).apply {
-                        putExtra("openFragment", "ProfileFragment")
+            if (selcetImg != null){
+                val selectedUri = Uri.parse(selcetImg)
+                firebaseStorage.reference.child("userProfile").child(userId).putFile(selectedUri).addOnSuccessListener { task ->
+                    task.storage.downloadUrl.addOnSuccessListener { imagesUri ->
+                        val model = mapOf(
+                            "profileImg" to imagesUri.toString(),
+                            "society" to society,
+                            "number" to number,
+                            "pinCode" to pinCode,
+                            "userName" to userName,
+                            "emailId" to email,
+                            "houseNo" to houseNo,
+                            "gender" to selectedGender,
+                            "userId" to userId
+                        )
+                        db.collection("userDetails").document(userId)
+                            .set(model)
+                            .addOnSuccessListener {
+                                progressDialog.dismiss()
+                                val intent = Intent(this, HomeActivity::class.java).apply {
+                                    putExtra("openFragment", "ProfileFragment")
+                                }
+                                startActivity(intent)
+                                finish()
+                            }
+                            .addOnFailureListener { e ->
+                                progressDialog.dismiss()
+                                Toast.makeText(this, "Error uploading details: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
+
+                    }.addOnFailureListener {
+                        Toast.makeText(this, "${it.message}", Toast.LENGTH_SHORT).show()
+                        progressDialog.dismiss()
                     }
-                    startActivity(intent)
-                    finish()
-                }
-                .addOnFailureListener { e ->
+                }.addOnFailureListener {
+                    Toast.makeText(this, "${it.message}", Toast.LENGTH_SHORT).show()
                     progressDialog.dismiss()
-                    Toast.makeText(this, "Error uploading details: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
+            }else{
+                val model = mapOf(
+                    "profileImg" to imgUri,
+                    "society" to society,
+                    "number" to number,
+                    "pinCode" to pinCode,
+                    "userName" to userName,
+                    "emailId" to email,
+                    "houseNo" to houseNo,
+                    "gender" to selectedGender,
+                    "userId" to userId
+                )
+                db.collection("userDetails").document(userId)
+                    .set(model)
+                    .addOnSuccessListener {
+                        progressDialog.dismiss()
+                        val intent = Intent(this, HomeActivity::class.java).apply {
+                            putExtra("openFragment", "ProfileFragment")
+                        }
+                        startActivity(intent)
+                        finish()
+                    }
+                    .addOnFailureListener { e ->
+                        progressDialog.dismiss()
+                        Toast.makeText(this, "Error uploading details: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+            }
+
+
         } else {
             binding.updateEmailIdEdit.error = "Invalid email format"
         }
@@ -204,7 +245,7 @@ class EditDetailsActivity : AppCompatActivity() {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
             val selectedImageUri: Uri? = data?.data
             if (selectedImageUri != null) {
-                imgUri = selectedImageUri.toString()
+                selcetImg = selectedImageUri.toString()
                 Glide.with(this).load(selectedImageUri).placeholder(R.drawable.img)
                     .into(binding.updateProfileImg)
             }

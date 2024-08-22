@@ -126,46 +126,6 @@
                             android:hint="@string/house"
                             android:inputType="number"
                             android:singleLine="true"/>
-                    </LinearLayout>
-
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    app:cardElevation="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="15dp"
-                        android:gravity="center"
-                        android:background="@color/white">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/personalDetails"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/lightGery"/>
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/updatePinCodeEdit"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:textColor="@color/blue"
-                            android:hint="@string/pin_code"
-                            android:inputType="number"
-                            android:singleLine="true"
-                            />
-
-
                         <RadioGroup
                             android:id="@+id/updateGanderGroup"
                             android:layout_width="match_parent"
@@ -174,6 +134,7 @@
                             android:layout_marginTop="25dp"
                             android:gravity="center"
                             >
+
                             <com.google.android.material.radiobutton.MaterialRadioButton
                                 android:id="@+id/updateFemale"
                                 android:layout_width="wrap_content"
@@ -206,12 +167,12 @@
                                 android:paddingEnd="8dp"
                                 tools:ignore="RtlSymmetry" />
                         </RadioGroup>
-
-
                     </LinearLayout>
 
 
                 </com.google.android.material.card.MaterialCardView>
+
+
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -239,6 +200,16 @@
                             android:textColor="@color/lightGery"
                             android:singleLine="true"/>
 
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/updatePinCodeEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:textColor="@color/blue"
+                            android:hint="@string/pin_code"
+                            android:inputType="number"
+                            android:singleLine="true"
+                            />
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/updateNumberEdit"
                             android:layout_width="match_parent"

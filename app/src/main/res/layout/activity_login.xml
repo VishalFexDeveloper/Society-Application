@@ -13,7 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:src="@drawable/society_icon"/>
+        android:contentDescription="@string/announcement_images"
+        android:src="@drawable/people_img"
+        app:tint="@color/greyWhite" />
 
 
     <RelativeLayout

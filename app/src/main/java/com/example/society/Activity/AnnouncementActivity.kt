@@ -26,6 +26,7 @@ import com.example.society.R
 import com.example.society.databinding.ActivityAnnouncementBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -37,9 +38,10 @@ class AnnouncementActivity : AppCompatActivity() {
     lateinit var binding: ActivityAnnouncementBinding
     private lateinit var viewModel: UserViewModel
     private lateinit var userId: String
-    private var announcementBanner: String? = null
+    private var announcementBanner: Uri? = null
     private val PICK_IMAGE_REQUEST = 9191
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var firebaseStorage: FirebaseStorage
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +50,7 @@ class AnnouncementActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         firestore = FirebaseFirestore.getInstance()
+        firebaseStorage = FirebaseStorage.getInstance()
         val repository = UserRepository()
         val viewModelFactory = UserProfileViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
@@ -126,7 +129,7 @@ class AnnouncementActivity : AppCompatActivity() {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
             val selectedImageUri: Uri? = data?.data
             if (selectedImageUri != null) {
-                announcementBanner = selectedImageUri.toString()
+                announcementBanner = selectedImageUri
                 Glide.with(this).load(selectedImageUri).placeholder(R.drawable.img)
                     .into(binding.announcementFullImg)
                 binding.announcementFullImg.visibility = View.VISIBLE
@@ -168,57 +171,59 @@ class AnnouncementActivity : AppCompatActivity() {
             }
 
             else -> {
-                val progressDialog = ShowProgress.showProgressDialog(this, "Uploading announcement...")
-
                 val announcementId = UUID.randomUUID().toString()
-                val postingItemModel = PostingItemModel(
-                    AnnId = announcementId,
-                    title = title,
-                    content = content,
-                    date = date,
-                    isPinned = false,
-                    announcementImg = announcementBanner,
-                    userProImg = profile.profileImg,
-                    userName = profile.userName,
-                    time = timeString,
-                    society = profile.society,
-                    userId = userId,
-                    phoneNumber = profile.number
-                )
-
-                val userDocRef = firestore.collection("Announcements").document(userId)
-
-                userDocRef.get().addOnSuccessListener { documentSnapshot ->
-                    val postingModel: PostingModel = if (documentSnapshot.exists()) {
-                        documentSnapshot.toObject(PostingModel::class.java) ?: PostingModel()
-                    } else {
-                        PostingModel()
+                val progressDialog = ShowProgress.showProgressDialog(this, "Uploading announcement...")
+                firebaseStorage.reference.child("Announcements").child(userId).child(announcementId)
+                    .putFile(
+                        announcementBanner!!
+                    ).addOnSuccessListener { task ->
+                    task.storage.downloadUrl.addOnSuccessListener { imgUri ->
+                        val postingItemModel = PostingItemModel(
+                            AnnId = announcementId,
+                            title = title,
+                            content = content,
+                            date = date,
+                            isPinned = false,
+                            announcementImg = imgUri.toString(),
+                            userProImg = profile.profileImg,
+                            userName = profile.userName,
+                            time = timeString,
+                            society = profile.society,
+                            userId = userId,
+                            phoneNumber = profile.number
+                        )
+                        val userDocRef = firestore.collection("Announcements").document(userId)
+                        userDocRef.get().addOnSuccessListener { documentSnapshot ->
+                            val postingModel: PostingModel = if (documentSnapshot.exists()) {
+                                documentSnapshot.toObject(PostingModel::class.java) ?: PostingModel()
+                            } else {
+                                PostingModel()
+                            }
+                            postingModel.userAnnouncements.forEach { item ->
+                                if (item.AnnId == null) {
+                                    item.AnnId = UUID.randomUUID().toString()
+                                }
+                            }
+                            postingModel.userAnnouncements.add(postingItemModel)
+                            userDocRef.set(postingModel)
+                                .addOnSuccessListener {
+                                    progressDialog.dismiss()
+                                    val intent = Intent(this, HomeActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                                .addOnFailureListener {
+                                    progressDialog.dismiss()
+                                    Toast.makeText(this, "Failed to post announcement.", Toast.LENGTH_SHORT).show()
+                                }
+                        }.addOnFailureListener {
+                            progressDialog.dismiss()
+                            Toast.makeText(this, "Failed to retrieve data.", Toast.LENGTH_SHORT).show()
+                        }
                     }
 
-                    // Ensure the list does not modify existing AnnId values
-                    postingModel.userAnnouncements.forEach { item ->
-                        if (item.AnnId == null) {
-                            item.AnnId = UUID.randomUUID().toString()  // Just in case any AnnId is null
-                        }
-                    }
-
-                    postingModel.userAnnouncements.add(postingItemModel)
-
-                    userDocRef.set(postingModel)
-                        .addOnSuccessListener {
-                            progressDialog.dismiss()
-                            val intent = Intent(this, HomeActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }
-                        .addOnFailureListener {
-                            progressDialog.dismiss()
-                            Toast.makeText(this, "Failed to post announcement.", Toast.LENGTH_SHORT).show()
-                        }
-                }.addOnFailureListener {
-                    progressDialog.dismiss()
-                    Toast.makeText(this, "Failed to retrieve data.", Toast.LENGTH_SHORT).show()
                 }
+
             }
 
         }

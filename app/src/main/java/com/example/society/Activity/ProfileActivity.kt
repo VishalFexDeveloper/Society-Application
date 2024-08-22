@@ -30,7 +30,8 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var phoneAuth: FirebaseAuth
     private var number: String? = null
     private val PICK_IMAGE_REQUEST = 9191
-    private var imgUri: String? = null
+    private var imgUri: Uri? = null
+    private lateinit var firebaseStorage: FirebaseStorage
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +41,7 @@ class ProfileActivity : AppCompatActivity() {
 
         db = FirebaseFirestore.getInstance()
         phoneAuth = FirebaseAuth.getInstance()
+        firebaseStorage = FirebaseStorage.getInstance()
         number = intent.getStringExtra("number")
         saveProfile("profileActivity")
         binding.profileImg.setOnClickListener {
@@ -74,7 +76,8 @@ class ProfileActivity : AppCompatActivity() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openGallery()
             } else {
-                Toast.makeText(this, "Permission required to select an image", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Permission required to select an image", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
@@ -134,43 +137,59 @@ class ProfileActivity : AppCompatActivity() {
                 }
 
                 if (email.matches(emailPattern.toRegex())) {
-
-                    val model = ProfileDetails(
-                        imgUri.toString(),
-                        society,
-                        number,
-                        pinCode,
-                        userName,
-                        email,
-                        houseNo = houseNo,
-                        gender = selectedGender,
-                        userId = phoneAuth.currentUser?.uid
-                    )
-                    val progressDialog = ShowProgress.showProgressDialog(this, "Profile uploading ...")
+                    val progressDialog =
+                        ShowProgress.showProgressDialog(this, "Profile uploading ...")
                     phoneAuth.currentUser?.let {
-                        db.collection("userDetails").document(it.uid)
-                            .set(model)
-                            .addOnSuccessListener {
+                        firebaseStorage.reference.child("userProfile").child(
+                            it.uid
+                        ).putFile(imgUri!!).addOnSuccessListener { task ->
+                            task.storage.downloadUrl.addOnSuccessListener { imgageUri ->
+                                val model = ProfileDetails(
+                                    imgageUri.toString(),
+                                    society,
+                                    number,
+                                    pinCode,
+                                    userName,
+                                    email,
+                                    houseNo = houseNo,
+                                    gender = selectedGender,
+                                    userId = phoneAuth.currentUser?.uid
+                                )
+
+                                phoneAuth.currentUser?.let {
+                                    db.collection("userDetails").document(it.uid)
+                                        .set(model)
+                                        .addOnSuccessListener {
+                                            progressDialog.dismiss()
+                                            val intent = Intent(this, HomeActivity::class.java)
+                                            startActivity(intent)
+                                            finish()
+                                            saveProfile("")
+                                        }
+                                        .addOnFailureListener { e ->
+                                            progressDialog.dismiss()
+                                            Toast.makeText(
+                                                this,
+                                                "Error uploading details: ${e.message}",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                }
+                            }.addOnFailureListener {
                                 progressDialog.dismiss()
-                                val intent = Intent(this, HomeActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                                saveProfile("")
+                                Toast.makeText(this, "${it.message}", Toast.LENGTH_SHORT).show()
                             }
-                            .addOnFailureListener { e ->
-                                progressDialog.dismiss()
-                                Toast.makeText(
-                                    this,
-                                    "Error uploading details: ${e.message}",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+
+                        }.addOnFailureListener {
+                            progressDialog.dismiss()
+                            Toast.makeText(this, "${it.message}", Toast.LENGTH_SHORT).show()
+                        }
                     }
+
                 }
             }
         }
     }
-
 
 
     @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
@@ -180,21 +199,19 @@ class ProfileActivity : AppCompatActivity() {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
             val selectedImageUri: Uri? = data?.data
             if (selectedImageUri != null) {
-                imgUri = selectedImageUri.toString()
+                imgUri = selectedImageUri
                 Glide.with(this).load(selectedImageUri).placeholder(R.drawable.img)
                     .into(binding.profileImg)
             }
         }
     }
 
-    private fun saveProfile(profileActivity:String){
+    private fun saveProfile(profileActivity: String) {
         val sharedPreferences: SharedPreferences = getSharedPreferences("profile", MODE_PRIVATE)
         val edits = sharedPreferences.edit()
-        edits.putString("profileActivity",profileActivity)
+        edits.putString("profileActivity", profileActivity)
         edits.apply()
     }
-
-
 
 
 }

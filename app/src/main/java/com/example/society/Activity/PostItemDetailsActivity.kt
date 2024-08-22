@@ -36,7 +36,7 @@ class PostItemDetailsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val postingId = intent.getStringExtra("postingId")
-        userId = intent.getStringExtra("userId") // Use class-level userId
+        userId = intent.getStringExtra("userId")
 
         binding.itemDetailsArrowBtn.setOnClickListener {
             finish()
@@ -66,7 +66,6 @@ class PostItemDetailsActivity : AppCompatActivity() {
                             val postItem = announcements.find { it.AnnId == postingId }
                             if (postItem != null) {
                                 postItems = postItem
-
                                 binding.itemDetailsName.text = postItems.userName
                                 binding.itemDetailsTitle.text = postItems.title
                                 binding.itemDetailscontacts.text = postItems.content
@@ -74,9 +73,11 @@ class PostItemDetailsActivity : AppCompatActivity() {
                                 binding.itemDetailsDate.text = "Date ${postItems.date}  Time ${postItems.time}"
                                 Glide.with(this).load(postItems.announcementImg).placeholder(R.drawable.img).into(binding.itemDetailsBannerImg)
                                 Glide.with(this).load(postItems.userProImg).placeholder(R.drawable.img).into(binding.itemDetailsProfileImg)
-
                                 binding.itemDetailsProgressbar.visibility = View.GONE
                                 binding.itemDetailsLayout.visibility = View.VISIBLE
+                                if (postItem.userId == userId){
+                                    binding.itemDetailsCallBtn.visibility = View.GONE
+                                }
                             } else {
                                 binding.showPostNoData.visibility = View.VISIBLE
                                 binding.itemDetailsProgressbar.visibility = View.GONE
