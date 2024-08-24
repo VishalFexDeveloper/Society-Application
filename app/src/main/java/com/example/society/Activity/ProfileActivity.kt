@@ -18,7 +18,6 @@ import com.example.society.DialogBox.ShowProgress
 import com.example.society.Model.ProfileDetails
 import com.example.society.R
 import com.example.society.databinding.ActivityProfileBinding
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -29,7 +28,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var phoneAuth: FirebaseAuth
     private var number: String? = null
-    private val PICK_IMAGE_REQUEST = 9191
+    private val IMAGE_REQUEST = 9191
     private var imgUri: Uri? = null
     private lateinit var firebaseStorage: FirebaseStorage
 
@@ -53,7 +52,7 @@ class ProfileActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(Manifest.permission.READ_MEDIA_IMAGES),
-                    PICK_IMAGE_REQUEST
+                    IMAGE_REQUEST
                 )
             }
         }
@@ -72,7 +71,7 @@ class ProfileActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode == PICK_IMAGE_REQUEST) {
+        if (requestCode == IMAGE_REQUEST) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openGallery()
             } else {
@@ -85,7 +84,7 @@ class ProfileActivity : AppCompatActivity() {
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+        startActivityForResult(intent, IMAGE_REQUEST)
     }
 
     private fun upLoadDetails() {
@@ -137,8 +136,7 @@ class ProfileActivity : AppCompatActivity() {
                 }
 
                 if (email.matches(emailPattern.toRegex())) {
-                    val progressDialog =
-                        ShowProgress.showProgressDialog(this, "Profile uploading ...")
+                    val progressDialog = ShowProgress.showProgressDialog(this, "Profile uploading ...")
                     phoneAuth.currentUser?.let {
                         firebaseStorage.reference.child("userProfile").child(
                             it.uid
@@ -196,7 +194,7 @@ class ProfileActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+        if (requestCode == IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
             val selectedImageUri: Uri? = data?.data
             if (selectedImageUri != null) {
                 imgUri = selectedImageUri

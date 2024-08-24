@@ -54,10 +54,12 @@ class OtpVerifyActivity : AppCompatActivity() {
     }
 
     private fun checkIfUserAlreadyRegistered() {
-        val currentUser = auth.currentUser
-        val userDocumentRef = currentUser?.let {
-            FirebaseFirestore.getInstance().collection("userDetails").document(it.uid)
-        }
+        val userDocumentRef =
+            auth.currentUser?.let {
+                FirebaseFirestore.getInstance().collection("userDetails").document(
+                    it.uid
+                )
+            }
         userDocumentRef?.get()?.addOnSuccessListener { document ->
             if (document.exists()) {
                 val intent = Intent(this, HomeActivity::class.java)
@@ -78,8 +80,6 @@ class OtpVerifyActivity : AppCompatActivity() {
             ).show()
         }
     }
-
-
 
 
 }
