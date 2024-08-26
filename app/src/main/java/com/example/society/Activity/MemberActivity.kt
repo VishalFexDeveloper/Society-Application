@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.society.Adapter.MembersAdapter
 import com.example.society.Model.ProfileDetails
 import com.example.society.Mvvm.UserViewModel
-import com.example.society.Mvvm.UserProfileViewModelFactory
+import com.example.society.Mvvm.UserViewModelFactory
 import com.example.society.Mvvm.UserRepository
 import com.example.society.databinding.ActivityMemberBinding
 import com.google.firebase.firestore.FirebaseFirestore
@@ -37,7 +37,7 @@ class MemberActivity : AppCompatActivity() {
         binding.allMembersList.adapter = membersAdapter
 
         val repository = UserRepository()
-        val viewModelFactory = UserProfileViewModelFactory(repository)
+        val viewModelFactory = UserViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
 
         getAllMembers()

@@ -28,20 +28,18 @@ class SplashScreen : AppCompatActivity() {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             } else {
-                val sharedPreferences: SharedPreferences = getSharedPreferences("profile", MODE_PRIVATE)
-                val value = sharedPreferences.getString("profileActivity","")
-                if (value == "profileActivity"){
+                val sharedPreferences: SharedPreferences =
+                    getSharedPreferences("profile", MODE_PRIVATE)
+                val value = sharedPreferences.getString("profileActivity", "")
+                if (value == "profileActivity") {
                     val intent = Intent(this, ProfileActivity::class.java)
                     startActivity(intent)
-                }else{
+                } else {
                     val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                 }
             }
             finish()
         }, splashTimeOut)
-
     }
-
-
 }

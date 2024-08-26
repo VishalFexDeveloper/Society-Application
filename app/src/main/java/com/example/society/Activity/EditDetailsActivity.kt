@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.society.DialogBox.ShowProgress
 import com.example.society.Mvvm.UserViewModel
-import com.example.society.Mvvm.UserProfileViewModelFactory
+import com.example.society.Mvvm.UserViewModelFactory
 import com.example.society.Mvvm.UserRepository
 import com.example.society.R
 import com.example.society.databinding.ActivityEditDetailsBinding
@@ -43,7 +43,7 @@ class EditDetailsActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
         firebaseStorage = FirebaseStorage.getInstance()
         val repository = UserRepository()
-        val viewModelFactory = UserProfileViewModelFactory(repository)
+        val viewModelFactory = UserViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
 
         binding.EditProgressBar.visibility = View.VISIBLE

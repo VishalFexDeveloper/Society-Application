@@ -19,10 +19,11 @@ import com.example.society.Model.PostingItemModel
 import com.example.society.Model.PostingModel
 import com.example.society.Model.ProfileDetails
 import com.example.society.Mvvm.UserViewModel
-import com.example.society.Mvvm.UserProfileViewModelFactory
+import com.example.society.Mvvm.UserViewModelFactory
 import com.example.society.Mvvm.UserRepository
 import com.example.society.R
 import com.example.society.databinding.FragmentProfileBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -43,7 +44,7 @@ class ProfileFragment : Fragment() {
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         val repository = UserRepository()
-        val viewModelFactory = UserProfileViewModelFactory(repository)
+        val viewModelFactory = UserViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
 
         showPostList = mutableListOf()
@@ -69,8 +70,7 @@ class ProfileFragment : Fragment() {
         userId = FirebaseAuth.getInstance().currentUser?.uid ?: "null"
         viewModel.fetchUserProfile(userId)
         binding.logOut.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            redirectToLogin()
+            showDialogBox()
         }
         binding.profileEdit.setOnClickListener {
             val intent = Intent(requireContext(), EditDetailsActivity::class.java)
@@ -150,6 +150,20 @@ class ProfileFragment : Fragment() {
                 binding.profilePostAll.visibility = View.GONE
                 binding.showPostProgressBar.visibility = View.GONE
             }
+    }
+
+    private fun showDialogBox() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Sign Out")
+            .setMessage("Are you sure you want to sign out?")
+            .setPositiveButton("Yes") { _, _ ->
+                FirebaseAuth.getInstance().signOut()
+                redirectToLogin()
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
 

@@ -11,14 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.society.Adapter.ShowPostAdapter
 import com.example.society.Model.PostingItemModel
-import com.example.society.Model.PostingModel
 import com.example.society.Model.ProfileDetails
-import com.example.society.Mvvm.UserProfileViewModelFactory
+import com.example.society.Mvvm.UserViewModelFactory
 import com.example.society.Mvvm.UserRepository
 import com.example.society.Mvvm.UserViewModel
 import com.example.society.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -37,7 +35,7 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val repository = UserRepository()
-        val viewModelFactory = UserProfileViewModelFactory(repository)
+        val viewModelFactory = UserViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
 
         showPostList = mutableListOf()

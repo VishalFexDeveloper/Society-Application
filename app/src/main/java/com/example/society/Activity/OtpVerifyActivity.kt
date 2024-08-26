@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.society.DialogBox.ShowProgress
 import com.example.society.databinding.ActivityOtpVerifyBinding
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.firebase.FirebaseException
@@ -54,6 +55,7 @@ class OtpVerifyActivity : AppCompatActivity() {
     }
 
     private fun checkIfUserAlreadyRegistered() {
+        val showProgress = ShowProgress.showProgressDialog(this,"Please wait")
         val userDocumentRef =
             auth.currentUser?.let {
                 FirebaseFirestore.getInstance().collection("userDetails").document(
@@ -62,10 +64,12 @@ class OtpVerifyActivity : AppCompatActivity() {
             }
         userDocumentRef?.get()?.addOnSuccessListener { document ->
             if (document.exists()) {
+                showProgress.dismiss()
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
+                showProgress.dismiss()
                 val intent = Intent(this, ProfileActivity::class.java).apply {
                     putExtra("number", number)
                 }
@@ -73,6 +77,7 @@ class OtpVerifyActivity : AppCompatActivity() {
                 finish()
             }
         }?.addOnFailureListener { e ->
+            showProgress.dismiss()
             Toast.makeText(
                 this,
                 "Error checking registration status: ${e.message}",

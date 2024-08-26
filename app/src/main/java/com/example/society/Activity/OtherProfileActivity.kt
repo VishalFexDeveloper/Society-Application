@@ -1,14 +1,10 @@
 package com.example.society.Activity
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
@@ -16,12 +12,11 @@ import com.example.society.Adapter.ProfilePostAdapter
 import com.example.society.Model.PostingItemModel
 import com.example.society.Model.PostingModel
 import com.example.society.Model.ProfileDetails
-import com.example.society.Mvvm.UserProfileViewModelFactory
+import com.example.society.Mvvm.UserViewModelFactory
 import com.example.society.Mvvm.UserRepository
 import com.example.society.Mvvm.UserViewModel
 import com.example.society.R
 import com.example.society.databinding.ActivityOtherProfileBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class OtherProfileActivity : AppCompatActivity() {
@@ -39,7 +34,7 @@ class OtherProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val repository = UserRepository()
-        val viewModelFactory = UserProfileViewModelFactory(repository)
+        val viewModelFactory = UserViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
 
         showPostList = mutableListOf()

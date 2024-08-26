@@ -20,7 +20,7 @@ import com.example.society.Model.PostingItemModel
 import com.example.society.Model.PostingModel
 import com.example.society.Model.ProfileDetails
 import com.example.society.Mvvm.UserViewModel
-import com.example.society.Mvvm.UserProfileViewModelFactory
+import com.example.society.Mvvm.UserViewModelFactory
 import com.example.society.Mvvm.UserRepository
 import com.example.society.R
 import com.example.society.databinding.ActivityAnnouncementBinding
@@ -52,7 +52,7 @@ class AnnouncementActivity : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
         firebaseStorage = FirebaseStorage.getInstance()
         val repository = UserRepository()
-        val viewModelFactory = UserProfileViewModelFactory(repository)
+        val viewModelFactory = UserViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
 
         binding.announcementImgLayout.setOnClickListener {

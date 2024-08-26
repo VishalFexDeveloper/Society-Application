@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:contentDescription="@string/Application_logo"
-        android:src="@drawable/app_logo"
+        android:src="@drawable/communities_icon"
         app:tint="@color/blue" />
 
     <TextView
